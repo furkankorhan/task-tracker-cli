@@ -1,37 +1,27 @@
 # Task Tracker CLI
 
-A small command-line task tracker built with Python and SQLite.
+A small task tracker that runs in the terminal and stores tasks in a local SQLite database.
 
-This is a beginner-friendly project for practicing:
+Nothing fancy. I built it as a first Python + SQLite exercise to understand how a simple command-line program can keep data after the script closes.
 
-- Python functions
-- command-line arguments
-- SQLite database persistence
-- basic CRUD operations
-- simple terminal output
+## What it does
 
-## Why I Built This
+- adds tasks
+- lists saved tasks
+- marks tasks as done
+- deletes tasks
+- stores everything in `tasks.db`
 
-I built this project as a first practical Python + SQLite exercise. The goal was not to create a complex productivity app, but to understand how a small program can store data, read commands from the terminal, and update records in a local database.
+## Tech stack
 
-## Features
-
-- Add a new task
-- List all tasks
-- Mark a task as done
-- Delete a task
-- Store tasks locally in SQLite
-
-## Tech Stack
-
-- Python 3
+- Python
 - SQLite
 
-No external packages are required.
+No external packages are needed.
 
 ## Usage
 
-Clone the repository and run the commands from the project folder:
+Show the help message:
 
 ```bash
 python3 app.py help
@@ -40,7 +30,7 @@ python3 app.py help
 Add a task:
 
 ```bash
-python3 app.py add "Learn Python basics"
+python3 app.py add "Write README"
 ```
 
 List tasks:
@@ -61,34 +51,30 @@ Delete a task:
 python3 app.py delete 1
 ```
 
-## Example Output
+## Example
 
 ```text
-Aufgabenliste:
+Task list:
 --------------------------------------------------
-  [1] done  Learn Python basics  (2026-05-17 00:39)
-  [2] open  Write README  (2026-05-17 00:40)
+  [1] [x]  Learn Python basics  (2026-05-17 00:39)
+  [2] [ ]  Write README  (2026-05-17 00:40)
 --------------------------------------------------
 ```
 
-## What I Learned
+## What I learned
 
-- How to create and connect to a SQLite database from Python
-- How to create a database table automatically if it does not exist
-- How to insert, update, delete and read records
-- How to structure a small CLI program with functions
-- How command-line arguments work with `sys.argv`
+- how to read command-line arguments with `sys.argv`
+- how to create a SQLite database from Python
+- how to create a table if it does not exist yet
+- how basic CRUD operations work: create, read, update, delete
+- why `.gitignore` matters for local database files
 
-## Next Improvements
+## Possible next steps
 
-- Add due dates
-- Add priorities
-- Add categories
-- Add search and filtering
-- Improve error handling
-- Add tests
+- add due dates
+- add task priorities
+- add categories
+- add a search command
+- add simple tests
 
-## Project Status
-
-First working version.
-
+Built while practicing programming fundamentals and preparing small projects for my IT Ausbildung applications.
