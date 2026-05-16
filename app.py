@@ -21,13 +21,14 @@ def get_connection():
 
 def add_task(title):
     conn = get_connection()
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
     conn.execute(
         "INSERT INTO tasks (title, done, created) VALUES (?, 0, ?)",
-        (title, datetime.now().strftime("%Y-%m-%d %H:%M"))
+        (title, now)
     )
     conn.commit()
     conn.close()
-    print(f'✅ Aufgabe hinzugefügt: "{title}"')
+    print(f'Added task: "{title}"')
 
 
 def list_tasks():
@@ -36,14 +37,14 @@ def list_tasks():
     conn.close()
 
     if not rows:
-        print("📭 Keine Aufgaben vorhanden.")
+        print("No tasks yet.")
         return
 
-    print("\n📋 Aufgabenliste:")
+    print("\nTask list:")
     print("-" * 50)
     for row in rows:
         id_, title, done, created = row
-        status = "✅" if done else "⬜"
+        status = "[x]" if done else "[ ]"
         print(f"  [{id_}] {status}  {title}  ({created})")
     print("-" * 50)
     print()
@@ -56,9 +57,9 @@ def complete_task(task_id):
     conn.close()
 
     if cursor.rowcount == 0:
-        print(f"❌ Aufgabe #{task_id} nicht gefunden.")
+        print(f"Task #{task_id} was not found.")
     else:
-        print(f"🎉 Aufgabe #{task_id} als erledigt markiert!")
+        print(f"Marked task #{task_id} as done.")
 
 
 def delete_task(task_id):
@@ -68,20 +69,20 @@ def delete_task(task_id):
     conn.close()
 
     if cursor.rowcount == 0:
-        print(f"❌ Aufgabe #{task_id} nicht gefunden.")
+        print(f"Task #{task_id} was not found.")
     else:
-        print(f"🗑️  Aufgabe #{task_id} gelöscht.")
+        print(f"Deleted task #{task_id}.")
 
 
 def show_help():
     print("""
-🛠️  Task Tracker – Verwendung:
+Task Tracker - usage:
 
-  python3 app.py add "Aufgabe"   → Neue Aufgabe hinzufügen
-  python3 app.py list            → Alle Aufgaben anzeigen
-  python3 app.py done <id>       → Aufgabe als erledigt markieren
-  python3 app.py delete <id>     → Aufgabe löschen
-  python3 app.py help            → Hilfe anzeigen
+  python3 app.py add "Task title"  Add a new task
+  python3 app.py list              Show all tasks
+  python3 app.py done <id>         Mark a task as done
+  python3 app.py delete <id>       Delete a task
+  python3 app.py help              Show this help message
 """)
 
 
@@ -93,8 +94,9 @@ def main():
 
     elif args[0] == "add":
         if len(args) < 2:
-            print('❌ Verwendung: python3 app.py add "Deine Aufgabe"')
+            print('Usage: python3 app.py add "Task title"')
         else:
+            # Join all remaining words so the task title can contain spaces.
             add_task(" ".join(args[1:]))
 
     elif args[0] == "list":
@@ -102,18 +104,18 @@ def main():
 
     elif args[0] == "done":
         if len(args) < 2 or not args[1].isdigit():
-            print("❌ Verwendung: python3 app.py done <id>")
+            print("Usage: python3 app.py done <id>")
         else:
             complete_task(int(args[1]))
 
     elif args[0] == "delete":
         if len(args) < 2 or not args[1].isdigit():
-            print("❌ Verwendung: python3 app.py delete <id>")
+            print("Usage: python3 app.py delete <id>")
         else:
             delete_task(int(args[1]))
 
     else:
-        print(f'❌ Unbekannter Befehl: "{args[0]}"')
+        print(f'Unknown command: "{args[0]}"')
         show_help()
 
 
