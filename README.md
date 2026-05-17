@@ -68,6 +68,7 @@ Task list:
 - how to create a table if it does not exist yet
 - how basic CRUD operations work: create, read, update, delete
 - why `.gitignore` matters for local database files
+- why small terminal tools are useful for understanding program flow without hiding logic behind a UI
 
 ## Possible next steps
 
