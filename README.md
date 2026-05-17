@@ -1,5 +1,7 @@
 # Task Tracker CLI
 
+![Task Tracker CLI terminal demo](assets/terminal-demo.svg)
+
 A small task tracker that runs in the terminal and stores tasks in a local SQLite database.
 
 Nothing fancy. I built it as a first Python + SQLite exercise to understand how a simple command-line program can keep data after the script closes.
